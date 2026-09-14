@@ -30,7 +30,7 @@ Upload the contents of `public/` to the web root. The `/cs/`, `/de/`, etc. direc
 ## SEO + social preview deployment notes (2026-09-14)
 - Production website origin used by SEO is `https://rawlo.eu`.
 - Open Graph / WhatsApp / Facebook / LinkedIn metadata is static in every localized HTML `<head>`; it does not depend on JavaScript.
-- Each of the 22 language pages has its own 1200x630 JPEG under `public/assets/social/rawlo-social-<lang>-20260914-v4.jpg`.
+- Each of the 22 language pages has its own 1200x630 JPEG under `public/assets/social/rawlo-social-<lang>-20260914-v5.jpg`.
 - Social image filenames are versioned so old WhatsApp/Facebook cache cannot keep a previously missing image URL.
 - The root `/` page has the global English preview; share `/cs/`, `/de/`, etc. when you want a localized social card.
 - Deploy the CONTENTS of `public/` as the site root. If `public/` is deployed as a subfolder, crawler URLs will 404 and previews will fail.

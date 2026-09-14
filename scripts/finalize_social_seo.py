@@ -9,7 +9,7 @@ SOC = PUB / 'assets' / 'social'
 SOC.mkdir(parents=True, exist_ok=True)
 POSTER = Path('/mnt/data/ChatGPT Image 31. 8. 2026 11_43_25(1).png')
 BASE = 'https://rawlo.eu'
-VERSION = '20260914-v4'
+VERSION = '20260914-v5'
 
 LANG_ORDER = ['en','cs','sk','pl','de','fr','es','pt','it','nl','hu','ro','hr','sl','bg','fi','sv','et','lv','lt','da','el']
 OG_LOCALE = {
