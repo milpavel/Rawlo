@@ -36,7 +36,14 @@
   });
   header?.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => header.classList.remove('menu-open')));
 
-  // V6: screenshots are rendered as a full responsive gallery; no carousel JS is needed.
+  // V7: 17-screen horizontal gallery with arrows, touch/trackpad swipe and live counter.
+  const gallery = document.getElementById('app-screens');
+  if (gallery) {
+    const shell = gallery.closest('.preview-shell'); const prev = shell?.querySelector('.preview-prev'); const next = shell?.querySelector('.preview-next'); const count = shell?.querySelector('.preview-count'); const figures=[...gallery.querySelectorAll('figure')];
+    const step=()=> (figures[0]?.getBoundingClientRect().width||300)+18;
+    const updateCount=()=>{if(!count||!figures.length)return;const idx=Math.max(0,Math.min(figures.length-1,Math.round(gallery.scrollLeft/step())));count.textContent=`${idx+1} / ${figures.length}`;};
+    prev?.addEventListener('click',()=>gallery.scrollBy({left:-step()*3,behavior:'smooth'})); next?.addEventListener('click',()=>gallery.scrollBy({left:step()*3,behavior:'smooth'})); gallery.addEventListener('scroll',()=>requestAnimationFrame(updateCount),{passive:true}); gallery.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')gallery.scrollBy({left:-step(),behavior:'smooth'});if(e.key==='ArrowRight')gallery.scrollBy({left:step(),behavior:'smooth'});}); updateCount();
+  }
 
   const links = [...document.querySelectorAll('.site-header nav a')];
   const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
