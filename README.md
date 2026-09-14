@@ -17,3 +17,12 @@ Upload the contents of `public/` to the web root. The `/cs/`, `/de/`, etc. direc
 
 ## Source
 `python3 scripts/generate_site.py` regenerates all localized HTML pages.
+
+## SEO & social sharing (2026-09-14)
+- 22 localized SEO title/description sets focused on motorhome, campervan and caravan travel.
+- Canonical URLs plus language and country-specific hreflang targeting for European markets.
+- Open Graph + X/Twitter large-image cards per language.
+- 22 localized 1200x630 social previews in `public/assets/social/`.
+- JSON-LD for Organization, WebSite and Travel SoftwareApplication.
+- Multilingual sitemap with hreflang alternates.
+- Re-run `python3 scripts/enhance_seo.py` after regenerating pages.

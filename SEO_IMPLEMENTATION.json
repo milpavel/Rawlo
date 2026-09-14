@@ -1,0 +1,16 @@
+{
+  "languages": 22,
+  "localized_social_previews": 22,
+  "country_hreflang_targets": 26,
+  "features": [
+    "localized title and meta description",
+    "canonical URLs",
+    "language + country hreflang",
+    "Open Graph",
+    "X/Twitter cards",
+    "1200x630 localized social images",
+    "JSON-LD Organization/WebSite/SoftwareApplication",
+    "multilingual sitemap",
+    "robots indexing directives"
+  ]
+}

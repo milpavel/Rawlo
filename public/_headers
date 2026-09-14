@@ -3,3 +3,6 @@
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
+
+/assets/social/*
+  Cache-Control: public, max-age=604800
