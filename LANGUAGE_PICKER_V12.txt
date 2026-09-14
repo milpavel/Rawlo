@@ -1,0 +1,16 @@
+RAWLO language & region picker — V12
+2026-09-14
+
+Implemented:
+- Replaced native select with a custom RAWLO-styled language/region picker.
+- Current locale button shows flag, language and country code on desktop.
+- Search supports native language name, country name and country code.
+- Five recommended languages shown as larger cards.
+- All 22 European locales shown in a compact flag grid.
+- Active locale is highlighted.
+- Browser-language automatic selection option.
+- Keyboard Escape and outside-click close behavior.
+- Responsive mobile overlay with compact 5/4-column grid.
+- Versioned assets: styles-v12.css and app-v12.js to avoid stale immutable cache.
+- Rebuilt and validated all 22 language pages.
+- Existing 17-screen gallery preserved on every locale.

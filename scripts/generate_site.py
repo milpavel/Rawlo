@@ -5,6 +5,15 @@ PUB=ROOT/'public'
 langs={
 'en':'English','cs':'Čeština','sk':'Slovenčina','pl':'Polski','de':'Deutsch','fr':'Français','es':'Español','pt':'Português','it':'Italiano','nl':'Nederlands','hu':'Magyar','ro':'Română','hr':'Hrvatski','sl':'Slovenščina','bg':'Български','fi':'Suomi','sv':'Svenska','et':'Eesti','lv':'Latviešu','lt':'Lietuvių','da':'Dansk','el':'Ελληνικά'
 }
+
+locale_meta={
+'en':('🇬🇧','EN','United Kingdom'),'cs':('🇨🇿','CZ','Česko'),'sk':('🇸🇰','SK','Slovensko'),'pl':('🇵🇱','PL','Polska'),
+'de':('🇩🇪','DE','Deutschland'),'fr':('🇫🇷','FR','France'),'es':('🇪🇸','ES','España'),'pt':('🇵🇹','PT','Portugal'),
+'it':('🇮🇹','IT','Italia'),'nl':('🇳🇱','NL','Nederland'),'hu':('🇭🇺','HU','Magyarország'),'ro':('🇷🇴','RO','România'),
+'hr':('🇭🇷','HR','Hrvatska'),'sl':('🇸🇮','SI','Slovenija'),'bg':('🇧🇬','BG','България'),'fi':('🇫🇮','FI','Suomi'),
+'sv':('🇸🇪','SE','Sverige'),'et':('🇪🇪','EE','Eesti'),'lv':('🇱🇻','LV','Latvija'),'lt':('🇱🇹','LT','Lietuva'),
+'da':('🇩🇰','DK','Danmark'),'el':('🇬🇷','GR','Ελλάδα')
+}
 # Concise, launch-site translations. Product names and service categories intentionally stay internationally recognizable.
 T={
 'en': dict(nav_features='Features',nav_planner='Trip planner',nav_europe='Europe',nav_preview='App preview',nav_faq='FAQ',nav_cta='Coming soon',eyebrow='The camper travel platform for Europe',hero_title='One app for your whole camper journey.',hero_sub='Plan together. Drive safer. Discover more.',hero_body='Plan the entire trip, share it with your travel companions, navigate with vehicle-specific restrictions, find camper places and understand the weather along your route.',hero_primary='Explore RAWLO',hero_secondary='See the app',pillars='PLAN · SHARE · DRIVE · STAY · DISCOVER · TRAVEL',vehicle_k='Built around your camper',vehicle_t='RAWLO knows what you are driving.',vehicle_b='Set height, width, length and weight once. RAWLO uses your vehicle profile when checking routes and warns you about restrictions that matter for a large camper.',vehicle_points=['Low bridges and height limits','Width, weight and length restrictions','Conditional road restrictions','Speed limits, traffic and safety alerts'],share_k='Shared trip planning',share_t='Plan together. Travel together.',share_b='Create a multi-day trip and invite your partner, family or friends. Give them view or edit access so everyone can add stops, choose campsites and shape the itinerary together.',share_copy='Later, public trips can become inspiration too: copy a shared itinerary and adapt it for your own camper.',weather_k='Route-aware weather',weather_t='Weather for when you will actually be there.',weather_b='RAWLO connects the forecast with your route and ETA. See conditions at the destination, along the drive and receive warnings about wind, storms or other weather risks ahead.',places_k='Camper places across Europe',places_t='Stay, service and refill — without leaving the trip.',places_b='Campsites, camper stops and service points with practical details such as water, electricity, WC, showers, waste disposal, Wi-Fi, pets, seasonality, pricing and booking options.',safety_k='Safety & route intelligence',safety_t='Know what is ahead.',safety_b='See route restrictions before departure and get relevant warnings while driving: road works, traffic, fixed cameras, average-speed zones and dangerous conditions.',services_k='Everything your European road trip needs',services_t='One trip. One app.',services_b='RAWLO is designed to connect the practical services that normally live in separate apps and websites.',services=['Vignettes & tolls','Ferries','eSIM & mobile data','Travel insurance','LPG & camper services','Activities & experiences'],profile_k='Your travel profile',profile_t='Your vehicles, places and trips in one home.',profile_b='Save vehicles, favourite places, photos, ratings, planned trips, completed journeys and trips shared with others.',europe_k='European from day one',europe_t='Built for Europe. Ready for 22 languages.',europe_b='RAWLO is being built on Europe-wide datasets and a multilingual foundation — not as a local app translated later.',preview_k='Real product, already taking shape',preview_t='A look at the current RAWLO build.',preview_b='These screens come from the app we are actively developing. The interface and individual features will continue to evolve before launch.',faq_k='FAQ',faq1q='Is RAWLO only a navigation app?',faq1a='No. Navigation is a core part, but RAWLO is designed for the full camper journey: planning, collaboration, places, weather, travel services and trip history.',faq2q='Will shared trip planning be a main feature?',faq2a='Yes. Collaborative planning is one of RAWLO’s main pillars, not a later add-on.',faq3q='Which vehicles is RAWLO for?',faq3a='The product is being designed primarily for motorhomes, campervans and caravans, where dimensions, weight and road restrictions matter.',faq4q='Will every feature shown be available at launch?',faq4a='Not necessarily. Some integrations and community features are still in development. The website clearly describes the RAWLO product direction without claiming unfinished partner services are already live.',closing_t='Plan together. Drive safer. Discover more.',closing_b='RAWLO is being built as one European home for camper travel.',legal='Features shown include functionality in active development. Availability can vary by country and at launch.'),
@@ -99,7 +108,32 @@ def page(code):
     # English lives at / and /en/ redirects to /
     base_path='/' if code=='en' else f'/{code}/'
     alt='\n'.join(f'<link rel="alternate" hreflang="{c}" href="https://rawlo.eu/{"" if c=="en" else c+"/"}">' for c in langs)
-    options=''.join(f'<option value="{c}" {"selected" if c==code else ""}>{E(n)}</option>' for c,n in langs.items())
+    flag, country_code, country_name = locale_meta[code]
+    featured_codes=[]
+    for c in (code,'en','de','pl','sk','cs','fr','it'):
+        if c not in featured_codes:
+            featured_codes.append(c)
+        if len(featured_codes) == 5:
+            break
+    def locale_card(c, featured=False):
+        f, cc, cn=locale_meta[c]
+        return (f'<button class="locale-card{" featured" if featured else ""}{" active" if c==code else ""}" type="button" data-lang="{c}" '
+                f'data-search="{E((langs[c]+" "+cn+" "+cc).lower())}" aria-current="{"true" if c==code else "false"}">'
+                f'<span class="locale-flag" aria-hidden="true">{f}</span><span class="locale-card-copy"><strong>{E(langs[c])}</strong><small>{E(cc)}</small></span>'
+                f'<span class="locale-check" aria-hidden="true">✓</span></button>')
+    featured=''.join(locale_card(c, True) for c in featured_codes)
+    locale_grid=''.join(locale_card(c) for c in langs)
+    locale_picker=f'''<div class="locale-picker" data-locale-picker>
+      <button class="locale-trigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="locale-popover">
+        <span class="locale-trigger-flag" aria-hidden="true">{flag}</span><span class="locale-trigger-name">{E(langs[code])}</span><span class="locale-trigger-code">{E(country_code)}</span><span class="locale-chevron" aria-hidden="true">⌃</span>
+      </button>
+      <div class="locale-popover" id="locale-popover" role="dialog" aria-label="Language and region" hidden>
+        <div class="locale-search-wrap"><span aria-hidden="true">⌕</span><input class="locale-search" type="search" autocomplete="off" spellcheck="false" placeholder="Search language or country…" aria-label="Search language or country"></div>
+        <section class="locale-section locale-featured"><div class="locale-section-head"><strong>Recommended</strong></div><div class="locale-featured-grid">{featured}</div></section>
+        <section class="locale-section locale-all"><div class="locale-section-head"><strong>Europe</strong><span>22 languages</span></div><div class="locale-grid">{locale_grid}</div><p class="locale-empty" hidden>No matching language or country.</p></section>
+        <button class="locale-auto" type="button" data-lang-auto><span aria-hidden="true">◎</span><span><strong>Use browser language</strong><small>Choose automatically from your browser settings</small></span><span aria-hidden="true">›</span></button>
+      </div>
+    </div>'''
     vp=''.join(f'<li>{E(x)}</li>' for x in t['vehicle_points'])
     services=''.join(f'<article class="service-card"><span class="service-dot"></span><h3>{E(x)}</h3></article>' for x in t['services'])
     shots=f'{prefix}assets/screens/localized/{code}'
@@ -118,13 +152,13 @@ def page(code):
 <link rel="canonical" href="https://rawlo.eu{base_path}">
 {alt}
 <link rel="icon" href="{prefix}assets/brand/rawlo_icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{prefix}assets/styles-v11.css">
+<link rel="stylesheet" href="{prefix}assets/styles-v12.css">
 {detect}
 <meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/screens/home.webp">
 </head>
 <body>
 <div class="noise"></div>
-<header class="site-header"><a class="brand" href="{base_path}"><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"></a><nav><a href="#features">{E(t['nav_features'])}</a><a href="#planner">{E(t['nav_planner'])}</a><a href="#europe">{E(t['nav_europe'])}</a><a href="#preview">{E(t['nav_preview'])}</a><a href="#faq">{E(t['nav_faq'])}</a></nav><div class="header-actions"><label class="lang"><span>🌐</span><select id="lang-select" aria-label="Language">{options}</select></label><a class="btn btn-small" href="#closing">{E(t['nav_cta'])}</a></div><button class="menu-btn" aria-label="Menu">☰</button></header>
+<header class="site-header"><a class="brand" href="{base_path}"><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"></a><nav><a href="#features">{E(t['nav_features'])}</a><a href="#planner">{E(t['nav_planner'])}</a><a href="#europe">{E(t['nav_europe'])}</a><a href="#preview">{E(t['nav_preview'])}</a><a href="#faq">{E(t['nav_faq'])}</a></nav><div class="header-actions">{locale_picker}<a class="btn btn-small" href="#closing">{E(t['nav_cta'])}</a></div><button class="menu-btn" aria-label="Menu" aria-expanded="false">☰</button></header>
 <main>
 <section class="hero"><div class="hero-glow"></div><div class="hero-copy reveal"><div class="eyebrow">{E(t['eyebrow'])}</div><h1>{E(t['hero_title'])}</h1><p class="hero-sub">{E(t['hero_sub'])}</p><p class="lede">{E(t['hero_body'])}</p><div class="hero-actions"><a class="btn" href="#features">{E(t['hero_primary'])}</a><a class="btn btn-ghost" href="#preview">{E(t['hero_secondary'])}</a></div><div class="micro">{E(t['pillars'])}</div></div><div class="hero-visual reveal"><div class="route-orbit orbit-a"></div><div class="route-orbit orbit-b"></div><img class="phone phone-back" src="{shots}/weather.webp" alt="RAWLO weather on iPhone"><img class="phone phone-main" src="{shots}/nearby-map-v3.webp" alt="RAWLO navigation on iPhone"><div class="floating-tag tag-a"><span class="pulse-dot"></span> LIVE UI</div><div class="floating-tag tag-b">2.6 m · 3,500 kg</div><div class="floating-tag tag-c">{E(langs[code])}</div></div></section>
 <section class="proof-strip" aria-label="RAWLO highlights"><div><strong>22</strong><span>languages</span></div><div><strong>EU</strong><span>built for Europe</span></div><div><strong>LIVE</strong><span>route intelligence</span></div><div><strong>PRO</strong><span>camper profile</span></div></section>
@@ -141,7 +175,7 @@ def page(code):
 <section id="closing" class="closing"><img src="{prefix}assets/brand/rawlo_icon.svg" alt=""><h2>{E(t['closing_t'])}</h2><p>{E(t['closing_b'])}</p><div class="store-row"><span class="store-placeholder"> &nbsp; App Store <small>COMING SOON FOR iPHONE</small></span></div></section>
 </main>
 <footer><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"><p>{E(t['legal'])}</p><span>© 2026 RAWLO</span></footer>
-<script src="{prefix}assets/app-v11.js" defer></script>
+<script src="{prefix}assets/app-v12.js" defer></script>
 </body></html>'''
 
 (PUB/'index.html').write_text(page('en'),encoding='utf-8')
