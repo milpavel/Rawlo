@@ -1,0 +1,19 @@
+RAWLO Cloudflare build fix v14.2
+Date: 2026-09-14
+
+Problem:
+Cloudflare successfully received GitHub commits, but npm run build failed in scripts/enhance_seo.py with:
+ModuleNotFoundError: No module named 'bs4'
+
+Fix:
+- Added requirements.txt with all third-party Python dependencies used by the build scripts:
+  - beautifulsoup4
+  - Pillow
+  - CairoSVG
+- Updated package.json build command to install requirements before running the site generators.
+
+Cloudflare settings remain:
+Build command: npm run build
+Build output directory: public
+
+The GitHub -> Cloudflare integration itself was not broken; only the build dependency installation was missing.

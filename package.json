@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "python3 scripts/generate_site.py && python3 scripts/enhance_seo.py && python3 scripts/finalize_social_seo.py",
+    "build": "python3 -m pip install -r requirements.txt && python3 scripts/generate_site.py && python3 scripts/enhance_seo.py && python3 scripts/finalize_social_seo.py",
     "preview": "python3 -m http.server 8788 -d public"
   }
 }
