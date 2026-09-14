@@ -36,13 +36,41 @@
   });
   header?.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => header.classList.remove('menu-open')));
 
-  // V7: 17-screen horizontal gallery with arrows, touch/trackpad swipe and live counter.
+  // V8: explicit 17-screen horizontal gallery. Show visible range, strong arrows and drag/swipe.
   const gallery = document.getElementById('app-screens');
   if (gallery) {
-    const shell = gallery.closest('.preview-shell'); const prev = shell?.querySelector('.preview-prev'); const next = shell?.querySelector('.preview-next'); const count = shell?.querySelector('.preview-count'); const figures=[...gallery.querySelectorAll('figure')];
-    const step=()=> (figures[0]?.getBoundingClientRect().width||300)+18;
-    const updateCount=()=>{if(!count||!figures.length)return;const idx=Math.max(0,Math.min(figures.length-1,Math.round(gallery.scrollLeft/step())));count.textContent=`${idx+1} / ${figures.length}`;};
-    prev?.addEventListener('click',()=>gallery.scrollBy({left:-step()*3,behavior:'smooth'})); next?.addEventListener('click',()=>gallery.scrollBy({left:step()*3,behavior:'smooth'})); gallery.addEventListener('scroll',()=>requestAnimationFrame(updateCount),{passive:true}); gallery.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')gallery.scrollBy({left:-step(),behavior:'smooth'});if(e.key==='ArrowRight')gallery.scrollBy({left:step(),behavior:'smooth'});}); updateCount();
+    const shell = gallery.closest('.preview-shell');
+    const prev = shell?.querySelector('.preview-prev');
+    const next = shell?.querySelector('.preview-next');
+    const count = shell?.querySelector('.preview-count');
+    const figures = [...gallery.querySelectorAll('figure')];
+    const step = () => (figures[0]?.getBoundingClientRect().width || 300) + 18;
+    const visibleSlots = () => Math.max(1, Math.floor((gallery.clientWidth + 18) / step()));
+    const updateCount = () => {
+      if (!figures.length) return;
+      const first = Math.max(0, Math.min(figures.length - 1, Math.round(gallery.scrollLeft / step())));
+      const last = Math.min(figures.length, first + visibleSlots());
+      if (count) count.textContent = `${first + 1}–${last} / ${figures.length} SCREENSHOTS`;
+      const atStart = gallery.scrollLeft <= 4;
+      const atEnd = gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 4;
+      if (prev) prev.disabled = atStart;
+      if (next) next.disabled = atEnd;
+      shell?.classList.toggle('gallery-at-end', atEnd);
+    };
+    prev?.addEventListener('click', () => gallery.scrollBy({ left: -step() * Math.max(1, visibleSlots() - 1), behavior: 'smooth' }));
+    next?.addEventListener('click', () => gallery.scrollBy({ left: step() * Math.max(1, visibleSlots() - 1), behavior: 'smooth' }));
+    gallery.addEventListener('scroll', () => requestAnimationFrame(updateCount), { passive: true });
+    gallery.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') gallery.scrollBy({ left: -step(), behavior: 'smooth' });
+      if (e.key === 'ArrowRight') gallery.scrollBy({ left: step(), behavior: 'smooth' });
+    });
+    let drag = null;
+    gallery.addEventListener('pointerdown', e => { drag = { x: e.clientX, left: gallery.scrollLeft }; gallery.setPointerCapture?.(e.pointerId); });
+    gallery.addEventListener('pointermove', e => { if (drag) gallery.scrollLeft = drag.left - (e.clientX - drag.x); });
+    gallery.addEventListener('pointerup', () => { drag = null; });
+    gallery.addEventListener('pointercancel', () => { drag = null; });
+    window.addEventListener('resize', updateCount, { passive: true });
+    updateCount();
   }
 
   const links = [...document.querySelectorAll('.site-header nav a')];
