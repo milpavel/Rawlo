@@ -1,0 +1,10 @@
+RAWLO scroll-start fix — 2026-09-14
+
+Problem:
+The screenshot carousel called Element.scrollIntoView() during its initial render. Because the numbered screenshot controls live inside the #preview section, browsers could vertically scroll the whole page down to the app preview immediately after loading rawlo.eu.
+
+Fix:
+- Replaced scrollIntoView() with horizontal-only scrolling of .preview-thumbs via scrollTo({left: ...}).
+- Added a clean-load guard: pages without a URL hash start at top=0.
+- URLs with explicit anchors such as #preview keep normal browser anchor behavior.
+- Created cache-busted assets/app-v14.js and updated the site generator so future builds keep the fix.

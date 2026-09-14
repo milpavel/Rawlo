@@ -190,7 +190,7 @@ def page(code):
 <section id="closing" class="closing"><img src="{prefix}assets/brand/rawlo_icon.svg" alt=""><h2>{E(t['closing_t'])}</h2><p>{E(t['closing_b'])}</p><div class="store-row"><span class="store-placeholder"> &nbsp; App Store <small>COMING SOON FOR iPHONE</small></span></div></section>
 </main>
 <footer><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"><p>{E(t['legal'])}</p><span>© 2026 RAWLO</span></footer>
-<script src="{prefix}assets/app-v13.js" defer></script>
+<script src="{prefix}assets/app-v14.js" defer></script>
 </body></html>'''
 
 (PUB/'index.html').write_text(page('en'),encoding='utf-8')
