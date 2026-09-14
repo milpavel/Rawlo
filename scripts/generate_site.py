@@ -103,6 +103,8 @@ def page(code):
     vp=''.join(f'<li>{E(x)}</li>' for x in t['vehicle_points'])
     services=''.join(f'<article class="service-card"><span class="service-dot"></span><h3>{E(x)}</h3></article>' for x in t['services'])
     shots=f'{prefix}assets/screens/localized/{code}'
+    gallery_html=''.join(f'<figure><img src="{shots}/gallery-{i:02d}.png" alt="RAWLO app screenshot {i} of 17 in {E(langs[code])}" loading="{"eager" if i <= 4 else "lazy"}" decoding="async"></figure>' for i in range(1,18))
+    gallery_nav=''.join(f'<button type="button" class="preview-thumb" data-gallery-index="{i-1}" aria-label="Show screenshot {i} of 17">{i:02d}</button>' for i in range(1,18))
     detect = '''<script>(function(){try{var supported=['en','cs','sk','pl','de','fr','es','pt','it','nl','hu','ro','hr','sl','bg','fi','sv','et','lv','lt','da','el'];var saved=localStorage.getItem('rawlo-lang');var langs=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']);var chosen=saved&&supported.includes(saved)?saved:null;if(!chosen){for(var i=0;i<langs.length;i++){var c=String(langs[i]).toLowerCase().split('-')[0];if(supported.includes(c)){chosen=c;break;}}}if(chosen&&chosen!=='en'&&location.pathname==='/'){location.replace('/'+chosen+'/'+location.search+location.hash);}}catch(e){}})();</script>''' if code=='en' else ''
     return f'''<!doctype html>
 <html lang="{code}">
@@ -116,7 +118,7 @@ def page(code):
 <link rel="canonical" href="https://rawlo.eu{base_path}">
 {alt}
 <link rel="icon" href="{prefix}assets/brand/rawlo_icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{prefix}assets/styles.css">
+<link rel="stylesheet" href="{prefix}assets/styles-v11.css">
 {detect}
 <meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/screens/home.webp">
 </head>
@@ -134,12 +136,12 @@ def page(code):
 <section class="section services"><div class="section-head reveal"><div class="kicker">{E(t['services_k'])}</div><h2>{E(t['services_t'])}</h2><p>{E(t['services_b'])}</p></div><div class="service-grid reveal">{services}</div></section>
 <section class="section profile split"><div class="copy reveal"><div class="kicker">{E(t['profile_k'])}</div><h2>{E(t['profile_t'])}</h2><p>{E(t['profile_b'])}</p></div><div class="visual reveal"><div class="screen-card screen-card-small"><img src="{shots}/vehicle-profile-v3.webp" alt="RAWLO profile"></div><div class="screen-card screen-card-small offset"><img src="{shots}/nearby-map-v3.webp" alt="RAWLO navigation map"></div></div></section>
 <section id="europe" class="section europe"><div class="map-dots"></div><div class="europe-copy reveal"><div class="kicker">{E(t['europe_k'])}</div><h2>{E(t['europe_t'])}</h2><p>{E(t['europe_b'])}</p><div class="lang-cloud">{''.join(f'<span>{E(n)}</span>' for n in langs.values())}</div></div></section>
-<section id="preview" class="section preview"><div class="section-head reveal"><div class="kicker">{E(t['preview_k'])}</div><h2>{E(t['preview_t'])}</h2><p>{E(t['preview_b'])}</p><div class="preview-language"><span class="pulse-dot"></span>{E(langs[code])} · RAWLO app</div></div><div class="preview-shell reveal"><div class="preview-rail" aria-hidden="true"><button data-preview="0" class="active">01</button><button data-preview="1">02</button><button data-preview="2">03</button><button data-preview="3">04</button></div><div class="screens" id="app-screens"><figure><img src="{shots}/nearby-map-v3.webp" alt="RAWLO navigation in {E(langs[code])}"><figcaption>Navigation</figcaption></figure><figure><img src="{shots}/route-summary-v3.webp" alt="RAWLO route overview in {E(langs[code])}"><figcaption>Route overview</figcaption></figure><figure><img src="{shots}/weather.webp" alt="RAWLO weather in {E(langs[code])}"><figcaption>Weather</figcaption></figure><figure><img src="{shots}/vehicle-profile-v3.webp" alt="RAWLO profile in {E(langs[code])}"><figcaption>Profile</figcaption></figure></div></div></section>
+<section id="preview" class="section preview"><div class="section-head reveal"><div class="kicker">{E(t['preview_k'])}</div><h2>{E(t['preview_t'])}</h2><p>{E(t['preview_b'])}</p><div class="preview-language"><span class="pulse-dot"></span>{E(langs[code])} · RAWLO app</div></div><div class="preview-shell reveal v10-gallery"><div class="preview-controls" aria-label="Screenshot gallery controls"><div class="preview-count"><strong>17</strong> screenshots</div><div class="preview-buttons"><button class="preview-arrow preview-prev" type="button" aria-label="Previous screenshots">‹</button><button class="preview-arrow preview-next" type="button" aria-label="Next screenshots">›</button></div></div><div class="preview-viewport"><div class="screens" id="app-screens" tabindex="0" aria-label="RAWLO app screenshots">{gallery_html}</div></div><div class="preview-thumbs" aria-label="All 17 RAWLO screenshots">{gallery_nav}</div></div></section>
 <section id="faq" class="section faq"><div class="section-head"><div class="kicker">{E(t['faq_k'])}</div></div><div class="faq-list">{''.join(f'<details><summary>{E(t[f"faq{i}q"])}</summary><p>{E(t[f"faq{i}a"])}</p></details>' for i in range(1,5))}</div></section>
 <section id="closing" class="closing"><img src="{prefix}assets/brand/rawlo_icon.svg" alt=""><h2>{E(t['closing_t'])}</h2><p>{E(t['closing_b'])}</p><div class="store-row"><span class="store-placeholder"> &nbsp; App Store <small>COMING SOON FOR iPHONE</small></span></div></section>
 </main>
 <footer><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"><p>{E(t['legal'])}</p><span>© 2026 RAWLO</span></footer>
-<script src="{prefix}assets/app.js" defer></script>
+<script src="{prefix}assets/app-v11.js" defer></script>
 </body></html>'''
 
 (PUB/'index.html').write_text(page('en'),encoding='utf-8')

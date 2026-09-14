@@ -1,0 +1,29 @@
+RAWLO web - deep audit and repair
+Date: 2026-09-14
+
+ROOT CAUSES FOUND
+1. scripts/generate_site.py generated only four preview figures even though all 17 localized gallery images existed.
+2. Generated public HTML contained unresolved Git merge conflict markers and two competing gallery versions / JS references.
+3. /assets/* is served with long immutable caching, while previous fixes reused app.js/styles.css filenames. Old CSS/JS could therefore remain cached.
+4. The travel-profile section used overlapping translated cards; on narrow screens the transformed second card could overflow the viewport.
+5. The V10 gallery thumbnail logic only attached click handlers when thumbnails were generated in JavaScript, not when they already existed in HTML.
+
+FIXES
+- Gallery is generated directly by scripts/generate_site.py with gallery-01.png through gallery-17.png for every language.
+- Exactly one #preview section is generated per page.
+- One canonical gallery implementation only.
+- Versioned production assets: assets/styles-v11.css and assets/app-v11.js.
+- 17 numbered gallery controls and previous/next controls.
+- Desktop shows multiple cards; mobile uses a narrow, viewport-safe carousel.
+- Travel-profile screenshots switch to a non-overlapping grid on tablet/mobile; transforms are removed below 980px and images are constrained to container width.
+- Existing numbered gallery controls receive click listeners correctly.
+- SEO/social post-processing re-applied after regeneration.
+
+VALIDATION
+- 22 production language pages checked.
+- 17 gallery PNG files present for every one of 22 languages.
+- 17 gallery figures referenced by every production language page.
+- One #preview section per page.
+- No unresolved Git merge conflict markers in generated public HTML.
+- app-v11.js passes node --check.
+- generate_site.py passes Python compile/build.
