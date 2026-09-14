@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import cairosvg, io, json, html
 from datetime import date
 
-ROOT=Path(__file__).resolve().parents[1]; PUB=ROOT/'public'; BASE='https://rawlo.app'
+ROOT=Path(__file__).resolve().parents[1]; PUB=ROOT/'public'; BASE='https://rawlo.eu'
 META={
 'en':('Camper Navigation & Trip Planner for Europe | RAWLO','Navigation and trip planning for motorhomes, campervans and caravans. RAWLO checks vehicle restrictions, traffic, ETA, route weather and crosswinds across Europe.','Camper navigation built around your vehicle.','Vehicle-aware routes · traffic · ETA · weather · camper places'),
 'cs':('Navigace pro obytná auta a karavany v Evropě | RAWLO','Navigace a plánování cest pro obytná auta, obytné dodávky a karavany. RAWLO hlídá omezení dle rozměrů vozidla, dopravu, ETA, počasí i boční vítr.','Navigace vytvořená pro vaše obytné auto.','Rozměry vozidla · doprava · ETA · počasí · camper místa'),

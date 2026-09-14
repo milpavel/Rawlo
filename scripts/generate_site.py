@@ -98,7 +98,7 @@ def page(code):
     prefix='../' if code!='en' else ''
     # English lives at / and /en/ redirects to /
     base_path='/' if code=='en' else f'/{code}/'
-    alt='\n'.join(f'<link rel="alternate" hreflang="{c}" href="https://rawlo.app/{"" if c=="en" else c+"/"}">' for c in langs)
+    alt='\n'.join(f'<link rel="alternate" hreflang="{c}" href="https://rawlo.eu/{"" if c=="en" else c+"/"}">' for c in langs)
     options=''.join(f'<option value="{c}" {"selected" if c==code else ""}>{E(n)}</option>' for c,n in langs.items())
     vp=''.join(f'<li>{E(x)}</li>' for x in t['vehicle_points'])
     services=''.join(f'<article class="service-card"><span class="service-dot"></span><h3>{E(x)}</h3></article>' for x in t['services'])
@@ -113,12 +113,12 @@ def page(code):
 <meta name="theme-color" content="#0b1117">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="RAWLO">
-<link rel="canonical" href="https://rawlo.app{base_path}">
+<link rel="canonical" href="https://rawlo.eu{base_path}">
 {alt}
 <link rel="icon" href="{prefix}assets/brand/rawlo_icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{prefix}assets/styles.css">
 {detect}
-<meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.app/assets/screens/home.webp">
+<meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/screens/home.webp">
 </head>
 <body>
 <div class="noise"></div>
@@ -145,7 +145,7 @@ def page(code):
 (PUB/'index.html').write_text(page('en'),encoding='utf-8')
 for code in langs:
     if code=='en':
-        d=PUB/'en';d.mkdir(exist_ok=True);(d/'index.html').write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/"><link rel="canonical" href="https://rawlo.app/">',encoding='utf-8')
+        d=PUB/'en';d.mkdir(exist_ok=True);(d/'index.html').write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=/"><link rel="canonical" href="https://rawlo.eu/">',encoding='utf-8')
     else:
         d=PUB/code; d.mkdir(exist_ok=True); (d/'index.html').write_text(page(code),encoding='utf-8')
 (PUB/'i18n-manifest.json').write_text(json.dumps({'languages':langs},ensure_ascii=False,indent=2),encoding='utf-8')

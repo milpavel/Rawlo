@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://rawlo.app/sitemap.xml
+
+Sitemap: https://rawlo.eu/sitemap.xml

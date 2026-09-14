@@ -1,16 +1,175 @@
 {
-  "languages": 22,
-  "localized_social_previews": 22,
-  "country_hreflang_targets": 26,
-  "features": [
-    "localized title and meta description",
-    "canonical URLs",
-    "language + country hreflang",
-    "Open Graph",
-    "X/Twitter cards",
-    "1200x630 localized social images",
-    "JSON-LD Organization/WebSite/SoftwareApplication",
-    "multilingual sitemap",
-    "robots indexing directives"
-  ]
+  "generated": "2026-09-14",
+  "base_url": "https://rawlo.eu",
+  "social_image_version": "20260914-v4",
+  "notes": [
+    "SEO_IMPLEMENTATION.json is documentation only; crawlers read metadata in each HTML <head>.",
+    "Open Graph and X/Twitter tags are rendered server-side in static HTML and do not depend on JavaScript.",
+    "Social images use new versioned filenames to avoid stale WhatsApp/Facebook cache.",
+    "Root URL has an English/global preview; localized URLs have localized previews."
+  ],
+  "pages": [
+    {
+      "lang": "en",
+      "url": "https://rawlo.eu/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-en-20260914-v4.jpg",
+      "title": "Camper Navigation & Trip Planner for Europe | RAWLO",
+      "description": "Navigation and trip planning for motorhomes, campervans and caravans. RAWLO checks vehicle restrictions, traffic, ETA, route weather and crosswinds across Europe."
+    },
+    {
+      "lang": "cs",
+      "url": "https://rawlo.eu/cs/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-cs-20260914-v4.jpg",
+      "title": "Navigace pro obytná auta a karavany v Evropě | RAWLO",
+      "description": "Navigace a plánování cest pro obytná auta, obytné dodávky a karavany. RAWLO hlídá omezení dle rozměrů vozidla, dopravu, ETA, počasí i boční vítr."
+    },
+    {
+      "lang": "sk",
+      "url": "https://rawlo.eu/sk/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-sk-20260914-v4.jpg",
+      "title": "Navigácia pre obytné autá a karavany | RAWLO",
+      "description": "Navigácia a plánovanie ciest pre obytné autá, campervany a karavany. RAWLO sleduje obmedzenia vozidla, dopravu, ETA, počasie na trase aj bočný vietor."
+    },
+    {
+      "lang": "pl",
+      "url": "https://rawlo.eu/pl/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-pl-20260914-v4.jpg",
+      "title": "Nawigacja dla kamperów i przyczep w Europie | RAWLO",
+      "description": "Nawigacja i planowanie podróży dla kamperów, campervanów i przyczep. RAWLO uwzględnia wymiary pojazdu, ruch, ETA, pogodę na trasie i boczny wiatr."
+    },
+    {
+      "lang": "de",
+      "url": "https://rawlo.eu/de/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-de-20260914-v4.jpg",
+      "title": "Wohnmobil Navigation & Routenplaner Europa | RAWLO",
+      "description": "Navigation und Reiseplanung für Wohnmobile, Campervans und Wohnwagen. RAWLO berücksichtigt Fahrzeugmaße, Verkehr, ETA, Streckenwetter und Seitenwind."
+    },
+    {
+      "lang": "fr",
+      "url": "https://rawlo.eu/fr/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-fr-20260914-v4.jpg",
+      "title": "Navigation camping-car & itinéraires Europe | RAWLO",
+      "description": "Navigation et planification pour camping-cars, vans aménagés et caravanes. RAWLO tient compte du gabarit, du trafic, de l’ETA, de la météo et du vent latéral."
+    },
+    {
+      "lang": "es",
+      "url": "https://rawlo.eu/es/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-es-20260914-v4.jpg",
+      "title": "Navegación para autocaravanas en Europa | RAWLO",
+      "description": "Navegación y planificación para autocaravanas, campers y caravanas. RAWLO considera dimensiones, tráfico, ETA, tiempo en ruta y viento lateral."
+    },
+    {
+      "lang": "pt",
+      "url": "https://rawlo.eu/pt/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-pt-20260914-v4.jpg",
+      "title": "Navegação para autocaravanas na Europa | RAWLO",
+      "description": "Navegação e planeamento para autocaravanas, campervans e caravanas. RAWLO considera dimensões, trânsito, ETA, meteorologia na rota e vento lateral."
+    },
+    {
+      "lang": "it",
+      "url": "https://rawlo.eu/it/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-it-20260914-v4.jpg",
+      "title": "Navigazione camper e itinerari in Europa | RAWLO",
+      "description": "Navigazione e pianificazione per camper, van e caravan. RAWLO considera dimensioni del veicolo, traffico, ETA, meteo lungo il percorso e vento laterale."
+    },
+    {
+      "lang": "nl",
+      "url": "https://rawlo.eu/nl/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-nl-20260914-v4.jpg",
+      "title": "Campernavigatie & routeplanner voor Europa | RAWLO",
+      "description": "Navigatie en reisplanning voor campers, campervans en caravans. RAWLO houdt rekening met voertuigafmetingen, verkeer, ETA, routeweer en zijwind."
+    },
+    {
+      "lang": "hu",
+      "url": "https://rawlo.eu/hu/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-hu-20260914-v4.jpg",
+      "title": "Lakóautó navigáció és útvonaltervező | RAWLO",
+      "description": "Navigáció és utazástervezés lakóautókhoz, campervanokhoz és lakókocsikhoz. RAWLO figyeli a járműméretet, forgalmat, ETA-t, útvonali időjárást és oldalszelet."
+    },
+    {
+      "lang": "ro",
+      "url": "https://rawlo.eu/ro/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-ro-20260914-v4.jpg",
+      "title": "Navigație pentru autorulote în Europa | RAWLO",
+      "description": "Navigație și planificare pentru autorulote, campervan-uri și rulote. RAWLO ține cont de dimensiuni, trafic, ETA, vremea pe traseu și vântul lateral."
+    },
+    {
+      "lang": "hr",
+      "url": "https://rawlo.eu/hr/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-hr-20260914-v4.jpg",
+      "title": "Navigacija za kampere i autodomove | RAWLO",
+      "description": "Navigacija i planiranje putovanja za autodomove, campervane i kamp-prikolice. RAWLO prati dimenzije vozila, promet, ETA, vrijeme na ruti i bočni vjetar."
+    },
+    {
+      "lang": "sl",
+      "url": "https://rawlo.eu/sl/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-sl-20260914-v4.jpg",
+      "title": "Navigacija za avtodome in prikolice | RAWLO",
+      "description": "Navigacija in načrtovanje poti za avtodome, campervane in prikolice. RAWLO upošteva mere vozila, promet, ETA, vreme na poti in bočni veter."
+    },
+    {
+      "lang": "bg",
+      "url": "https://rawlo.eu/bg/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-bg-20260914-v4.jpg",
+      "title": "Навигация за кемпери и каравани в Европа | RAWLO",
+      "description": "Навигация и планиране за кемпери, кемперванове и каравани. RAWLO отчита размерите, трафика, ETA, времето по маршрута и страничния вятър."
+    },
+    {
+      "lang": "fi",
+      "url": "https://rawlo.eu/fi/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-fi-20260914-v4.jpg",
+      "title": "Matkailuauton navigointi ja reittisuunnittelu | RAWLO",
+      "description": "Navigointi ja matkojen suunnittelu matkailuautoille, campervaneille ja asuntovaunuille. RAWLO huomioi ajoneuvon mitat, liikenteen, ETA:n, reittisään ja sivutuulen."
+    },
+    {
+      "lang": "sv",
+      "url": "https://rawlo.eu/sv/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-sv-20260914-v4.jpg",
+      "title": "Husbilsnavigering & ruttplanerare i Europa | RAWLO",
+      "description": "Navigering och reseplanering för husbilar, campervans och husvagnar. RAWLO tar hänsyn till fordonsmått, trafik, ETA, väder längs rutten och sidvind."
+    },
+    {
+      "lang": "et",
+      "url": "https://rawlo.eu/et/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-et-20260914-v4.jpg",
+      "title": "Matkaauto navigatsioon ja marsruudiplaneerija | RAWLO",
+      "description": "Navigatsioon ja reisiplaneerimine matkaautodele, campervanidele ja haagissuvilatele. RAWLO arvestab mõõte, liiklust, ETA-d, marsruudi ilma ja külgtuult."
+    },
+    {
+      "lang": "lv",
+      "url": "https://rawlo.eu/lv/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-lv-20260914-v4.jpg",
+      "title": "Kempera navigācija un maršrutu plānotājs | RAWLO",
+      "description": "Navigācija un ceļojumu plānošana kemperiem, campervaniem un treileriem. RAWLO ņem vērā izmērus, satiksmi, ETA, laikapstākļus maršrutā un sānvēju."
+    },
+    {
+      "lang": "lt",
+      "url": "https://rawlo.eu/lt/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-lt-20260914-v4.jpg",
+      "title": "Kemperių navigacija ir maršrutų planavimas | RAWLO",
+      "description": "Navigacija ir kelionių planavimas kemperiams, campervanams ir priekaboms. RAWLO vertina matmenis, eismą, ETA, orus maršrute ir šoninį vėją."
+    },
+    {
+      "lang": "da",
+      "url": "https://rawlo.eu/da/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-da-20260914-v4.jpg",
+      "title": "Autocamper navigation & ruteplanlægger | RAWLO",
+      "description": "Navigation og rejseplanlægning til autocampere, campervans og campingvogne. RAWLO tager højde for køretøjets mål, trafik, ETA, rutevejr og sidevind."
+    },
+    {
+      "lang": "el",
+      "url": "https://rawlo.eu/el/",
+      "image": "https://rawlo.eu/assets/social/rawlo-social-el-20260914-v4.jpg",
+      "title": "Πλοήγηση για camper και τροχόσπιτα | RAWLO",
+      "description": "Πλοήγηση και σχεδιασμός ταξιδιού για αυτοκινούμενα, campervan και τροχόσπιτα. Το RAWLO λαμβάνει υπόψη διαστάσεις, κίνηση, ETA, καιρό διαδρομής και πλευρικό άνεμο."
+    }
+  ],
+  "checks": {
+    "og_image": "1200x630 JPEG",
+    "absolute_https_urls": true,
+    "localized_pages": 22,
+    "robots": true,
+    "sitemap": true,
+    "json_ld": true
+  }
 }
