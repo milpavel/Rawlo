@@ -1,0 +1,18 @@
+rawlo-web/
+├── public/
+│   ├── index.html                 # English canonical + automatic browser-language detection
+│   ├── cs/, de/, fr/, ...         # 21 localized routes
+│   ├── assets/
+│   │   ├── app.js                 # language persistence, mobile nav, preview interactions
+│   │   ├── styles.css             # responsive RAWLO design
+│   │   ├── brand/                 # RAWLO vector branding
+│   │   └── screens/
+│   │       └── localized/<lang>/  # navigation, route, weather, profile screenshots
+│   ├── sitemap.xml
+│   ├── robots.txt
+│   ├── _headers
+│   └── _redirects
+├── scripts/generate_site.py
+├── package.json
+├── README.md
+└── PROJECT_STRUCTURE.txt

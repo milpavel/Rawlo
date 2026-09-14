@@ -1,0 +1,26 @@
+{
+  "languages": {
+    "en": "English",
+    "cs": "Čeština",
+    "sk": "Slovenčina",
+    "pl": "Polski",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "pt": "Português",
+    "it": "Italiano",
+    "nl": "Nederlands",
+    "hu": "Magyar",
+    "ro": "Română",
+    "hr": "Hrvatski",
+    "sl": "Slovenščina",
+    "bg": "Български",
+    "fi": "Suomi",
+    "sv": "Svenska",
+    "et": "Eesti",
+    "lv": "Latviešu",
+    "lt": "Lietuvių",
+    "da": "Dansk",
+    "el": "Ελληνικά"
+  }
+}
