@@ -36,27 +36,7 @@
   });
   header?.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => header.classList.remove('menu-open')));
 
-  const scroller = document.getElementById('app-screens');
-  const controls = [...document.querySelectorAll('[data-preview]')];
-  if (scroller && controls.length) {
-    const figures = [...scroller.querySelectorAll('figure')];
-    controls.forEach((btn) => btn.addEventListener('click', () => {
-      const idx = Number(btn.dataset.preview || 0);
-      figures[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }));
-    const markActive = () => {
-      const center = scroller.scrollLeft + scroller.clientWidth / 2;
-      let active = 0, best = Infinity;
-      figures.forEach((fig, i) => {
-        const c = fig.offsetLeft + fig.offsetWidth / 2;
-        const d = Math.abs(c - center);
-        if (d < best) { best = d; active = i; }
-      });
-      controls.forEach((b, i) => b.classList.toggle('active', i === active));
-    };
-    scroller.addEventListener('scroll', markActive, { passive: true });
-    markActive();
-  }
+  // V6: screenshots are rendered as a full responsive gallery; no carousel JS is needed.
 
   const links = [...document.querySelectorAll('.site-header nav a')];
   const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
