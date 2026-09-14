@@ -1,0 +1,14 @@
+RAWLO V13 — Europe + Services visual upgrade
+
+Changes:
+- Europe section: 22 clickable language cards with country flags, localized language names and country codes.
+- Active language has a teal highlighted state.
+- Responsive grid: 6 columns desktop, 4 tablet, 3/2 on smaller screens.
+- Services section redesigned as a major product block.
+- Six service cards now use custom inline SVG icons, numbering and hover states.
+- Added visual RAWLO route line and CTA.
+- Reused the real localized RAWLO app screenshot from the project in a phone frame (no generated hero image used).
+- Added three product proof badges (languages/services/one travel home).
+- Responsive desktop/tablet/mobile layouts included.
+- Cache-busting assets: styles-v13.css and app-v13.js.
+- Rebuilt all 22 language pages and re-applied SEO/social metadata.

@@ -135,7 +135,22 @@ def page(code):
       </div>
     </div>'''
     vp=''.join(f'<li>{E(x)}</li>' for x in t['vehicle_points'])
-    services=''.join(f'<article class="service-card"><span class="service-dot"></span><h3>{E(x)}</h3></article>' for x in t['services'])
+    service_icons = [
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l2 18H5L7 3Z"/><path d="M12 5v4M12 13v3M12 19v1"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14h16l-2 5H6l-2-5Z"/><path d="M8 14V8h8v6M10 8V5h4v3"/><path d="M3 21c2-1 3-1 5 0s3 1 5 0 3-1 5 0 3 1 4 0"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 6h4M10 18h4"/><path d="M3 9c2-2 2-4 0-6M21 9c-2-2-2-4 0-6"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.8 2.8 8.2 7 10 4.2-1.8 7-5.2 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h9v17M5 8h9M8 5h3"/><path d="M14 8h3l2 2v7a2 2 0 0 0 4 0v-6l-2-2"/></svg>',
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19 12 5l8 14H4Z"/><path d="M9 16h6M10.5 13h3"/></svg>',
+    ]
+    services=''.join(
+        f'<article class="service-card"><span class="service-number">0{i}</span><span class="service-icon">{service_icons[i-1]}</span><h3>{E(x)}</h3><span class="service-arrow">↗</span></article>'
+        for i,x in enumerate(t['services'],1)
+    )
+    lang_cards=''.join(
+        f'<a class="europe-lang-card{" active" if c==code else ""}" href="{"/" if c=="en" else "/"+c+"/"}" hreflang="{c}"><span class="europe-flag" aria-hidden="true">{locale_meta[c][0]}</span><span class="europe-lang-copy"><strong>{E(langs[c])}</strong><small>{E(locale_meta[c][1])}</small></span></a>'
+        for c in langs
+    )
     shots=f'{prefix}assets/screens/localized/{code}'
     gallery_html=''.join(f'<figure><img src="{shots}/gallery-{i:02d}.png" alt="RAWLO app screenshot {i} of 17 in {E(langs[code])}" loading="{"eager" if i <= 4 else "lazy"}" decoding="async"></figure>' for i in range(1,18))
     gallery_nav=''.join(f'<button type="button" class="preview-thumb" data-gallery-index="{i-1}" aria-label="Show screenshot {i} of 17">{i:02d}</button>' for i in range(1,18))
@@ -152,7 +167,7 @@ def page(code):
 <link rel="canonical" href="https://rawlo.eu{base_path}">
 {alt}
 <link rel="icon" href="{prefix}assets/brand/rawlo_icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="{prefix}assets/styles-v12.css">
+<link rel="stylesheet" href="{prefix}assets/styles-v13.css">
 {detect}
 <meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/screens/home.webp">
 </head>
@@ -167,15 +182,15 @@ def page(code):
 <section class="section route-intel"><div class="section-head reveal"><div class="kicker">{E(t['route_k'])}</div><h2>{E(t['route_t'])}</h2></div><div class="intel-grid reveal"><article><div class="intel-icon">↕</div><span class="intel-label">LIVE TRAFFIC + VEHICLE</span><h3>{E(t['traffic_t'])}</h3><p>{E(t['traffic_b'])}</p><div class="intel-tags"><span>2.6 m</span><span>2.3 m</span><span>3.5 t</span><span>7.2 m</span></div></article><article><div class="intel-icon">◷</div><span class="intel-label">DYNAMIC ETA</span><h3>{E(t['eta_t'])}</h3><p>{E(t['eta_b'])}</p><div class="eta-demo"><b>80 km/h</b><i>→</i><strong>ETA 20:42</strong></div></article><article><div class="intel-icon">≈</div><span class="intel-label">ROUTE WEATHER</span><h3>{E(t['wx_t'])}</h3><p>{E(t['wx_b'])}</p><div class="wind-demo"><span>↔ CROSSWIND</span><strong>42 km/h</strong></div></article></div><div class="route-live reveal"><span class="live-dot"></span><strong>RAWLO ROUTE INTELLIGENCE</strong><i></i><span>traffic</span><i></i><span>vehicle profile</span><i></i><span>ETA</span><i></i><span>weather</span></div></section>
 <section id="planner" class="section collaboration"><div class="collab-board reveal"><div class="board-head"><div><span class="kicker">{E(t['share_k'])}</span><h2>{E(t['share_t'])}</h2></div><div class="avatars"><b>PM</b><b>AM</b><b>+2</b></div></div><div class="route-list"><div><span>01</span><strong>Prague</strong><em>Start</em></div><div><span>02</span><strong>Salzburg</strong><em>2 nights</em></div><div><span>03</span><strong>Dolomites</strong><em>3 nights</em></div><div><span>04</span><strong>Lake Garda</strong><em>2 nights</em></div><div><span>05</span><strong>Tuscany</strong><em>Finish</em></div></div><div class="comment"><span class="avatar">AM</span><p>“What about adding one night by the lake?”</p><button>✓ Added</button></div></div><div class="copy reveal"><p>{E(t['share_b'])}</p><p class="muted">{E(t['share_copy'])}</p></div></section>
 <section class="section feature-grid"><article class="feature-wide reveal"><div><div class="kicker">{E(t['weather_k'])}</div><h2>{E(t['weather_t'])}</h2><p>{E(t['weather_b'])}</p></div><img src="{shots}/weather.webp" alt="RAWLO route weather"></article><article class="feature-card reveal"><div class="kicker">{E(t['places_k'])}</div><h3>{E(t['places_t'])}</h3><p>{E(t['places_b'])}</p><img src="{shots}/nearby-map-v3.webp" alt="RAWLO nearby camper services"></article><article class="feature-card reveal"><div class="kicker">{E(t['safety_k'])}</div><h3>{E(t['safety_t'])}</h3><p>{E(t['safety_b'])}</p><img src="{shots}/route-events-v3.webp" alt="RAWLO route restrictions"></article></section>
-<section class="section services"><div class="section-head reveal"><div class="kicker">{E(t['services_k'])}</div><h2>{E(t['services_t'])}</h2><p>{E(t['services_b'])}</p></div><div class="service-grid reveal">{services}</div></section>
+<section class="section services services-v13"><div class="services-glow"></div><div class="services-layout"><div class="services-copy reveal"><div class="kicker">{E(t['services_k'])}</div><h2>{E(t['services_t'])}</h2><p>{E(t['services_b'])}</p><div class="services-route"><span></span><i></i><span></span><i></i><span></span><i></i><span></span><b>RAWLO</b></div><div class="service-grid">{services}</div><a class="services-cta" href="#preview"><span>{E(t['hero_secondary'])}</span><strong>→</strong></a></div><div class="services-product reveal"><div class="services-phone-halo"></div><div class="services-phone-frame"><img src="{shots}/nearby-map-v3.webp" alt="RAWLO services and route map"></div><div class="service-float sf-a"><span>22</span><small>EU languages</small></div><div class="service-float sf-b"><span>6+</span><small>travel services</small></div><div class="service-float sf-c"><span>1</span><small>travel home</small></div></div></div></section>
 <section class="section profile split"><div class="copy reveal"><div class="kicker">{E(t['profile_k'])}</div><h2>{E(t['profile_t'])}</h2><p>{E(t['profile_b'])}</p></div><div class="visual reveal"><div class="screen-card screen-card-small"><img src="{shots}/vehicle-profile-v3.webp" alt="RAWLO profile"></div><div class="screen-card screen-card-small offset"><img src="{shots}/nearby-map-v3.webp" alt="RAWLO navigation map"></div></div></section>
-<section id="europe" class="section europe"><div class="map-dots"></div><div class="europe-copy reveal"><div class="kicker">{E(t['europe_k'])}</div><h2>{E(t['europe_t'])}</h2><p>{E(t['europe_b'])}</p><div class="lang-cloud">{''.join(f'<span>{E(n)}</span>' for n in langs.values())}</div></div></section>
+<section id="europe" class="section europe europe-v13"><div class="map-dots"></div><div class="europe-orbit eo-1"></div><div class="europe-orbit eo-2"></div><div class="europe-copy reveal"><div class="kicker">{E(t['europe_k'])}</div><h2>{E(t['europe_t'])}</h2><p>{E(t['europe_b'])}</p><div class="europe-lang-grid">{lang_cards}</div><div class="europe-meta"><span class="pulse-dot"></span><strong>22</strong><span>languages · one European RAWLO</span></div></div></section>
 <section id="preview" class="section preview"><div class="section-head reveal"><div class="kicker">{E(t['preview_k'])}</div><h2>{E(t['preview_t'])}</h2><p>{E(t['preview_b'])}</p><div class="preview-language"><span class="pulse-dot"></span>{E(langs[code])} · RAWLO app</div></div><div class="preview-shell reveal v10-gallery"><div class="preview-controls" aria-label="Screenshot gallery controls"><div class="preview-count"><strong>17</strong> screenshots</div><div class="preview-buttons"><button class="preview-arrow preview-prev" type="button" aria-label="Previous screenshots">‹</button><button class="preview-arrow preview-next" type="button" aria-label="Next screenshots">›</button></div></div><div class="preview-viewport"><div class="screens" id="app-screens" tabindex="0" aria-label="RAWLO app screenshots">{gallery_html}</div></div><div class="preview-thumbs" aria-label="All 17 RAWLO screenshots">{gallery_nav}</div></div></section>
 <section id="faq" class="section faq"><div class="section-head"><div class="kicker">{E(t['faq_k'])}</div></div><div class="faq-list">{''.join(f'<details><summary>{E(t[f"faq{i}q"])}</summary><p>{E(t[f"faq{i}a"])}</p></details>' for i in range(1,5))}</div></section>
 <section id="closing" class="closing"><img src="{prefix}assets/brand/rawlo_icon.svg" alt=""><h2>{E(t['closing_t'])}</h2><p>{E(t['closing_b'])}</p><div class="store-row"><span class="store-placeholder"> &nbsp; App Store <small>COMING SOON FOR iPHONE</small></span></div></section>
 </main>
 <footer><img src="{prefix}assets/brand/rawlo_logo_white.svg" alt="RAWLO"><p>{E(t['legal'])}</p><span>© 2026 RAWLO</span></footer>
-<script src="{prefix}assets/app-v12.js" defer></script>
+<script src="{prefix}assets/app-v13.js" defer></script>
 </body></html>'''
 
 (PUB/'index.html').write_text(page('en'),encoding='utf-8')
