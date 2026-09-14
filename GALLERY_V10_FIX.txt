@@ -1,0 +1,6 @@
+RAWLO V10 gallery rebuild
+- 17 screenshot files per each of 22 languages
+- 4 visible on desktop, 3 tablet, 2 small tablet, 1 mobile
+- arrows, swipe/drag, keyboard
+- numbered 01-17 navigation always visible
+- versioned styles-v10.css and app-v10.js to avoid old cache
