@@ -1,0 +1,5 @@
+RAWLO asset cache note
+======================
+The site serves /assets/* with Cache-Control: max-age=31536000, immutable.
+Therefore screenshots must use versioned filenames when changed.
+This build uses *-v3.webp filenames to force browsers/CDNs to load the new screenshots.
