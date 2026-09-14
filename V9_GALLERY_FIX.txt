@@ -1,0 +1,12 @@
+RAWLO V9 gallery rebuild
+
+- gallery rebuilt from scratch
+- all 17 screenshots remain in each of 22 localized screenshot folders
+- desktop shows 4 at once, then continues horizontally through all 17
+- tablet shows 2-3, mobile 1 large screenshot
+- fixed previous/next buttons
+- explicit numbered 01-17 selector under the carousel
+- visible "x-y of 17 screens" counter
+- progress bar
+- mouse drag, trackpad/touch horizontal scrolling and keyboard arrows
+- styles-v9.css and app-v9.js use new filenames to avoid browser/CDN cache serving the old gallery
