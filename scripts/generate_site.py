@@ -169,7 +169,7 @@ def page(code):
 <link rel="icon" href="{prefix}assets/brand/rawlo_icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{prefix}assets/styles-v13.css">
 {detect}
-<meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/screens/home.webp">
+<meta property="og:title" content="RAWLO — {E(t['hero_sub'])}"><meta property="og:description" content="{E(t['hero_body'])}"><meta property="og:type" content="website"><meta property="og:image" content="https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg">
 </head>
 <body>
 <div class="noise"></div>

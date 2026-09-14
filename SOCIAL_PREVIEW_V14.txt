@@ -1,0 +1,41 @@
+RAWLO unified social preview V14
+================================
+
+Goal
+----
+Use one recognizable RAWLO visual whenever rawlo.eu is shared through services that read Open Graph metadata, including WhatsApp, Messenger and Facebook, while keeping the page title and description localized.
+
+Production image
+----------------
+public/assets/social/rawlo-social-share-v14.jpg
+1200 x 630 px, JPEG
+
+Master artwork
+--------------
+design/social/rawlo-social-master-v14.png
+
+Metadata configured on all 22 canonical localized pages
+--------------------------------------------------------
+og:type=website
+og:site_name=RAWLO
+og:url=<localized canonical URL>
+og:title=<localized>
+og:description=<localized>
+og:image=https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg
+og:image:url=https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg
+og:image:secure_url=https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg
+og:image:type=image/jpeg
+og:image:width=1200
+og:image:height=630
+og:image:alt=<localized>
+twitter:card=summary_large_image
+twitter:image=<same V14 image>
+thumbnail=<same V14 image>
+link rel=image_src=<same V14 image>
+JSON-LD primaryImageOfPage=<same V14 image>
+
+Build
+-----
+npm run build
+
+The build order is generate_site.py -> enhance_seo.py -> finalize_social_seo.py so the final Open Graph metadata always uses the unified V14 card.

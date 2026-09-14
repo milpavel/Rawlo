@@ -21,8 +21,8 @@ Upload the contents of `public/` to the web root. The `/cs/`, `/de/`, etc. direc
 ## SEO & social sharing (2026-09-14)
 - 22 localized SEO title/description sets focused on motorhome, campervan and caravan travel.
 - Canonical URLs plus language and country-specific hreflang targeting for European markets.
-- Open Graph + X/Twitter large-image cards per language.
-- 22 localized 1200x630 social previews in `public/assets/social/`.
+- Open Graph + X/Twitter large-image cards on every language page.
+- One unified 1200x630 RAWLO social preview used across all 22 localized URLs.
 - JSON-LD for Organization, WebSite and Travel SoftwareApplication.
 - Multilingual sitemap with hreflang alternates.
 - Re-run `python3 scripts/enhance_seo.py` after regenerating pages.
@@ -30,7 +30,14 @@ Upload the contents of `public/` to the web root. The `/cs/`, `/de/`, etc. direc
 ## SEO + social preview deployment notes (2026-09-14)
 - Production website origin used by SEO is `https://rawlo.eu`.
 - Open Graph / WhatsApp / Facebook / LinkedIn metadata is static in every localized HTML `<head>`; it does not depend on JavaScript.
-- Each of the 22 language pages has its own 1200x630 JPEG under `public/assets/social/rawlo-social-<lang>-20260914-v5.jpg`.
-- Social image filenames are versioned so old WhatsApp/Facebook cache cannot keep a previously missing image URL.
-- The root `/` page has the global English preview; share `/cs/`, `/de/`, etc. when you want a localized social card.
+- All 22 language pages use `public/assets/social/rawlo-social-share-v14.jpg` for a consistent RAWLO visual identity.
+- The social filename is versioned so old WhatsApp/Facebook/Messenger cache does not keep the previous image.
+- The root `/` and `/cs/`, `/de/`, etc. use the same artwork while title/description remain localized.
 - Deploy the CONTENTS of `public/` as the site root. If `public/` is deployed as a subfolder, crawler URLs will 404 and previews will fail.
+
+## Unified social share card — V14
+- WhatsApp, Messenger, Facebook, LinkedIn and other Open Graph consumers now receive one shared RAWLO visual: `public/assets/social/rawlo-social-share-v14.jpg`.
+- The card is exactly 1200×630 px and clearly combines RAWLO branding, camper travel, route navigation and travel services.
+- Every localized URL uses the same image for a consistent brand identity; `og:title`, `og:description`, locale and canonical URL remain localized.
+- `twitter:card=summary_large_image`, `twitter:image`, `link rel=image_src`, `thumbnail` and JSON-LD `primaryImageOfPage` point at the same V14 asset.
+- The editable source visual is stored in `design/social/rawlo-social-master-v14.png` and `npm run build` recreates all pages and final social metadata.

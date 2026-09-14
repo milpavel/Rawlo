@@ -7,9 +7,9 @@ ROOT = Path(__file__).resolve().parents[1]
 PUB = ROOT / 'public'
 SOC = PUB / 'assets' / 'social'
 SOC.mkdir(parents=True, exist_ok=True)
-POSTER = Path('/mnt/data/ChatGPT Image 31. 8. 2026 11_43_25(1).png')
+POSTER = ROOT / 'design' / 'social' / 'rawlo-social-master-v14.png'
 BASE = 'https://rawlo.eu'
-VERSION = '20260914-v5'
+VERSION = 'v14'
 
 LANG_ORDER = ['en','cs','sk','pl','de','fr','es','pt','it','nl','hu','ro','hr','sl','bg','fi','sv','et','lv','lt','da','el']
 OG_LOCALE = {
@@ -69,83 +69,19 @@ def localized_screen(lang):
     return p
 
 def make_social(lang, title, desc):
+    """Build the one canonical RAWLO social card used by every locale.
+
+    Keeping one visual identity avoids different previews across WhatsApp,
+    Messenger, Facebook and other Open Graph consumers. Text metadata remains
+    localized in each HTML page.
+    """
     W,H=1200,630
-    if POSTER.exists():
-        bg = ImageOps.fit(Image.open(POSTER).convert('RGB'), (W,H), method=Image.Resampling.LANCZOS, centering=(0.5,0.32))
-        bg = bg.filter(ImageFilter.GaussianBlur(3))
-    else:
-        bg = Image.new('RGB',(W,H),(8,15,21))
-    overlay=Image.new('RGBA',(W,H),(5,12,18,0))
-    od=ImageDraw.Draw(overlay)
-    # deep gradient-like panels
-    for x in range(W):
-        a=int(220 - 70*(x/W))
-        od.line([(x,0),(x,H)], fill=(4,10,16,a))
-    # teal glow
-    glow=Image.new('RGBA',(W,H),(0,0,0,0)); gd=ImageDraw.Draw(glow)
-    gd.ellipse((760,40,1260,620), fill=(0,209,193,45))
-    glow=glow.filter(ImageFilter.GaussianBlur(80))
-    canvas=Image.alpha_composite(bg.convert('RGBA'),overlay)
-    canvas=Image.alpha_composite(canvas,glow)
-    d=ImageDraw.Draw(canvas)
-
-    # phone screenshot on right
-    sp=localized_screen(lang)
-    shot=Image.open(sp).convert('RGB')
-    # fit tall screenshot in rounded card
-    target_h=560
-    scale=target_h/shot.height
-    sw=int(shot.width*scale)
-    shot=shot.resize((sw,target_h),Image.Resampling.LANCZOS)
-    # crop if too wide
-    if sw>360:
-        left=(sw-360)//2; shot=shot.crop((left,0,left+360,target_h)); sw=360
-    xshot=805+(360-sw)//2; yshot=35
-    shadow=Image.new('RGBA',(sw+40,target_h+40),(0,0,0,0)); sd=ImageDraw.Draw(shadow)
-    sd.rounded_rectangle((20,20,sw+20,target_h+20), radius=34, fill=(0,0,0,140))
-    shadow=shadow.filter(ImageFilter.GaussianBlur(12))
-    canvas.alpha_composite(shadow,(xshot-20,yshot-20))
-    mask=Image.new('L',(sw,target_h),0); md=ImageDraw.Draw(mask); md.rounded_rectangle((0,0,sw,target_h),radius=34,fill=255)
-    shot_rg=shot.convert('RGBA'); shot_rg.putalpha(mask)
-    canvas.alpha_composite(shot_rg,(xshot,yshot))
-    d=ImageDraw.Draw(canvas)
-    d.rounded_rectangle((xshot-2,yshot-2,xshot+sw+2,yshot+target_h+2),radius=36,outline=(116,254,230,90),width=2)
-
-    # logo
-    logo=render_svg(PUB/'assets'/'brand'/'rawlo_logo_white.svg', width=330)
-    canvas.alpha_composite(logo,(72,56))
-    d=ImageDraw.Draw(canvas)
-
-    clean_title=re.sub(r'\s*\|\s*RAWLO\s*$','',title).strip()
-    tf=font(FONT_BOLD,50)
-    lines=wrap(d,clean_title,tf,620,max_lines=3)
-    y=175
-    for line in lines:
-        d.text((72,y),line,font=tf,fill=(248,251,252,255))
-        y += 62
-
-    df=font(FONT_REG,25)
-    desc_lines=wrap(d,desc,df,640,max_lines=3)
-    y=max(y+18,370)
-    for line in desc_lines:
-        d.text((74,y),line,font=df,fill=(185,196,204,255))
-        y += 38
-
-    # footer chips
-    ychip=540
-    chips=['↕ 2.6 m','◷ ETA','≈ 42 km/h']
-    x=72
-    cf=font(FONT_BOLD,18)
-    for chip in chips:
-        tw=d.textbbox((0,0),chip,font=cf)[2]
-        d.rounded_rectangle((x,ychip,x+tw+34,ychip+38),radius=19,fill=(8,45,48,210),outline=(0,209,193,170),width=1)
-        d.text((x+17,ychip+8),chip,font=cf,fill=(108,246,229,255))
-        x += tw+48
-    rf=font(FONT_BOLD,20)
-    d.text((72,592),'rawlo.eu',font=rf,fill=(0,209,193,255))
-
-    out=SOC/f'rawlo-social-{lang}-{VERSION}.jpg'
-    canvas.convert('RGB').save(out,'JPEG',quality=90,optimize=True,progressive=True)
+    if not POSTER.exists():
+        raise FileNotFoundError(f"Missing social master: {POSTER}")
+    source=Image.open(POSTER).convert('RGB')
+    card=ImageOps.fit(source,(W,H),method=Image.Resampling.LANCZOS,centering=(0.5,0.40))
+    out=SOC/'rawlo-social-share-v14.jpg'
+    card.save(out,'JPEG',quality=92,optimize=True,progressive=True)
     return out
 
 def remove_existing_social(soup):
@@ -180,7 +116,7 @@ def update_page(lang):
     desc=desc_tag.get('content','').strip() if desc_tag else ''
     canonical_tag=soup.find('link',rel='canonical')
     canonical=canonical_tag.get('href') if canonical_tag else (BASE+'/' if lang=='en' else f'{BASE}/{lang}/')
-    image_url=f'{BASE}/assets/social/rawlo-social-{lang}-{VERSION}.jpg'
+    image_url=f'{BASE}/assets/social/rawlo-social-share-v14.jpg'
     image_alt=re.sub(r'\s*\|\s*RAWLO\s*$','',title).strip() + ' — RAWLO'
     remove_existing_social(soup)
 
@@ -253,8 +189,9 @@ manifest={
   'notes':[
     'SEO_IMPLEMENTATION.json is documentation only; crawlers read metadata in each HTML <head>.',
     'Open Graph and X/Twitter tags are rendered server-side in static HTML and do not depend on JavaScript.',
-    'Social images use new versioned filenames to avoid stale WhatsApp/Facebook cache.',
-    'Root URL has an English/global preview; localized URLs have localized previews.'
+    'One versioned RAWLO social image is used across all locales for consistent brand identity.',
+    'Open Graph titles and descriptions remain localized per URL.',
+    'The versioned filename avoids stale WhatsApp/Facebook/Messenger cache.'
   ],
   'pages':results,
   'checks':{'og_image':'1200x630 JPEG','absolute_https_urls':True,'localized_pages':22,'robots':True,'sitemap':True,'json_ld':True}
