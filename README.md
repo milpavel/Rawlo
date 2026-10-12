@@ -1,43 +1,60 @@
-# RAWLO web — modern localized build
+# RAWLO · rawlo.eu · redesign 2026-10-12
 
-Static multilingual RAWLO landing page prepared for deployment on `rawlo.app`.
+Tmavý grafit, tyrkysová, horská fotografie a skutečné obrazovky aktuální aplikace.
+Web navazuje na repozitář `milpavel/Rawlo` a nasazení Cloudflare Pages.
 
-## What is included
-- 22 localized website routes: EN, CS, SK, PL, DE, FR, ES, PT, IT, NL, HU, RO, HR, SL, BG, FI, SV, ET, LV, LT, DA, EL.
-- Automatic first-visit language detection from the browser (`navigator.languages`).
-- Manual language selector remains available and the visitor's choice is remembered in `localStorage`.
-- App preview screenshots follow the current website language; every supported language has its own localized preview set.
-- Modernized dark RAWLO visual design, responsive layout, mobile menu, scroll reveal, active navigation, interactive app-preview controls and reduced-motion support.
-- Static deployment: no framework or server runtime required.
+## Sestavení a nasazení
 
-## Deploy
-Upload the contents of `public/` to the web root. The `/cs/`, `/de/`, etc. directories must stay intact.
+- Build command: `python3 scripts/generate_site.py` nebo `npm run build`.
+- Output directory: `public`.
+- Python 3.9 nebo novější; sestavení nevyžaduje instalaci balíčků.
+- Zachované kompatibilní vstupy `enhance_seo.py` a `finalize_social_seo.py` umožňují i původní build command.
+- Doména: `rawlo.eu`. Angličtina `/`, čeština `/cs/`, další jazyky dle kódu. `/en/` přesměruje na `/`.
+- `_headers` a `_redirects` zachovávají stávající Cloudflare konfiguraci.
 
-`/` is the English canonical page and automatically redirects human visitors to their supported browser language when appropriate. Search engines still receive the canonical/hreflang HTML.
+## Lokální náhled
 
-## Source
-`python3 scripts/generate_site.py` regenerates all localized HTML pages.
+```sh
+python3 scripts/generate_site.py
+python3 scripts/verify_site.py
+python3 -m http.server 8788 -d public
+```
 
-## SEO & social sharing (2026-09-14)
-- 22 localized SEO title/description sets focused on motorhome, campervan and caravan travel.
-- Canonical URLs plus language and country-specific hreflang targeting for European markets.
-- Open Graph + X/Twitter large-image cards on every language page.
-- One unified 1200x630 RAWLO social preview used across all 22 localized URLs.
-- JSON-LD for Organization, WebSite and Travel SoftwareApplication.
-- Multilingual sitemap with hreflang alternates.
-- Re-run `python3 scripts/enhance_seo.py` after regenerating pages.
+Otevřete `http://localhost:8788/cs/`. HTML nelze spolehlivě zobrazit dvojklikem:
+odkazy na assety začínají `/` stejně jako na produkční doméně.
 
-## SEO + social preview deployment notes (2026-09-14)
-- Production website origin used by SEO is `https://rawlo.eu`.
-- Open Graph / WhatsApp / Facebook / LinkedIn metadata is static in every localized HTML `<head>`; it does not depend on JavaScript.
-- All 22 language pages use `public/assets/social/rawlo-social-share-v14.jpg` for a consistent RAWLO visual identity.
-- The social filename is versioned so old WhatsApp/Facebook/Messenger cache does not keep the previous image.
-- The root `/` and `/cs/`, `/de/`, etc. use the same artwork while title/description remain localized.
-- Deploy the CONTENTS of `public/` as the site root. If `public/` is deployed as a subfolder, crawler URLs will 404 and previews will fail.
+## Obsah a dostupnost
 
-## Unified social share card — V14
-- WhatsApp, Messenger, Facebook, LinkedIn and other Open Graph consumers now receive one shared RAWLO visual: `public/assets/social/rawlo-social-share-v14.jpg`.
-- The card is exactly 1200×630 px and clearly combines RAWLO branding, camper travel, route navigation and travel services.
-- Every localized URL uses the same image for a consistent brand identity; `og:title`, `og:description`, locale and canonical URL remain localized.
-- `twitter:card=summary_large_image`, `twitter:image`, `link rel=image_src`, `thumbnail` and JSON-LD `primaryImageOfPage` point at the same V14 asset.
-- The editable source visual is stored in `design/social/rawlo-social-master-v14.png` and `npm run build` recreates all pages and final social metadata.
+Pět sekcí aplikace: Na cestu, Plánovač, Navigace, Mapa, Komunita. Profil navazuje samostatně.
+Galerie obsahuje 12 nezměněných uživatelem dodaných obrazovek v češtině. Titulky jsou lokalizované.
+Web uvádí vývojovou verzi iPhonu; neobsahuje neexistující odkaz do App Store ani termín vydání.
+eSIM je v testování, trajekty a cestovní pojištění se připravují.
+Prezentace dálničních známek neuvádí produkční platební garanci ani pevné ceny.
+Offline dostupnost celé Evropy, rezervace kempů, PRO nákupy a další nedoložené funkce nejsou slibovány.
+
+22 jazyků je zachováno. Nové texty jsou v `scripts/current_copy.py`;
+z původního katalogu se používají lokalizované nadpisy a informace o trase.
+Výběr jazyka pamatuje ruční volbu; na `/` použije jazyk prohlížeče.
+Po zavření náhledu obrázku se fokus vrací přes nativní HTML dialog.
+CSS respektuje omezení pohybu a má responzivní rozložení pro malé telefony.
+
+## Obrazové podklady
+
+Logo: původní SVG RAWLO. Ikony: SVG přímo v kódu.
+Pozadí `alpine-journey.png` bylo vytvořeno vestavěným ImageGen jako ilustrační fotografie.
+Prompt: Alpine valley, Dolomite mountain peaks, dark pine forest on the left,
+lake and winding road on the right, small unbranded camper, muted cool slate palette,
+photorealistic editorial adventure photography; no text, logo, phones or UI.
+Fotografie nepředstavuje konkrétní rezervovatelné místo.
+
+## Ověření
+
+Generátor, kompatibilní build vstupy a strukturální kontrola všech 22 stránek prošly.
+Kontrolují se soubory, kotvy, galerie, jazykové varianty, canonical a hreflang.
+JavaScript prochází `node --check`; změny `git diff --check`.
+V tomto prostředí nebylo dostupné ověření renderu a interakcí v prohlížeči.
+Před publikací zkontrolujte desktop a mobil v lokálním náhledu nebo Cloudflare preview.
+Produkční web nebyl z tohoto prostředí nasazen.
+
+Staré assety v existujícím repozitáři mohou zůstat: nové stránky je nepoužívají.
+Nové soubory mají verzi v názvu, aby dlouhá cache Cloudflare nevracela původní vzhled.

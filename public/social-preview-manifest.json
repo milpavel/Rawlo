@@ -1,27 +1,4 @@
 {
-  "version": "v14",
-  "images": {
-    "en": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "cs": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "sk": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "pl": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "de": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "fr": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "es": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "pt": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "it": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "nl": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "hu": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "ro": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "hr": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "sl": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "bg": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "fi": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "sv": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "et": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "lv": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "lt": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "da": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg",
-    "el": "https://rawlo.eu/assets/social/rawlo-social-share-v14.jpg"
-  }
+  "image": "https://rawlo.eu/assets/current-20261012/alpine-journey.png",
+  "version": "20261012"
 }
