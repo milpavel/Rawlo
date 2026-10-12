@@ -3,6 +3,7 @@ from pathlib import Path
 from html import escape
 import json
 from current_copy import COPY, SERVICES
+from marketing_page import render_campaign
 ROOT = Path(__file__).resolve().parents[1]
 PUB = ROOT / 'public'
 CAT = json.loads((ROOT/'scripts/legacy-translations.json').read_text())
@@ -21,6 +22,7 @@ ICONS = {
  'arrow':'<path d="M4 12h16m-6-6 6 6-6 6"/>',
  'mobile':'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M10 5h4m-3 14h2"/>',
  'ferry':'<path d="M4 13h16l-3 6H7l-3-6Zm4 0V7h8v6m-6-6V4h4v3M3 22c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
+ 'vehicle':'<path d="M3 16V7h11l3 4h4v5h-2m-14 0H3m4 0h8M14 7v9M6 10h5m6 1h-3"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
 }
 def icon(name):
  return '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+ICONS[name]+'</svg>'
@@ -59,7 +61,7 @@ def page(code):
  alternates=''.join(f'<link rel="alternate" hreflang="{key}" href="https://rawlo.eu{url(key)}">' for key in LANGS)+'<link rel="alternate" hreflang="x-default" href="https://rawlo.eu/">'
  schema=json.dumps({'@context':'https://schema.org','@type':'WebSite','name':'RAWLO','url':'https://rawlo.eu/','inLanguage':code,'description':c['intro']},ensure_ascii=False).replace('<','\\u003c')
  detect='<script src="/assets/detect-v15.js"></script>' if code=='en' else ''
- return f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ document=f'''<!doctype html><html lang="{code}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RAWLO — {E(t['hero_title'])}</title><meta name="description" content="{E(c['intro'])}"><meta name="theme-color" content="#111417"><link rel="canonical" href="https://rawlo.eu{url(code)}">{alternates}<link rel="icon" type="image/svg+xml" href="/assets/brand/rawlo_icon.svg">
 <meta property="og:type" content="website"><meta property="og:site_name" content="RAWLO"><meta property="og:title" content="RAWLO — {E(t['hero_title'])}"><meta property="og:description" content="{E(c['intro'])}"><meta property="og:url" content="https://rawlo.eu{url(code)}"><meta property="og:image" content="https://rawlo.eu{ASSETS}alpine-journey.png"><meta property="og:image:alt" content="RAWLO — {E(t['eyebrow'])}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="RAWLO — {E(t['hero_title'])}"><meta name="twitter:description" content="{E(c['intro'])}"><meta name="twitter:image" content="https://rawlo.eu{ASSETS}alpine-journey.png"><link rel="stylesheet" href="/assets/styles-v15.css">{detect}<script type="application/ld+json">{schema}</script></head>
 <body><a class="skip" href="#main">{E(t['nav_features'])} ↓</a><header class="site-header"><a class="brand" href="{url(code)}" aria-label="RAWLO"><img src="/assets/brand/rawlo_logo_white.svg" width="449" height="130" alt="RAWLO"></a><nav class="main-nav" id="main-nav" aria-label="RAWLO">{nav}</nav><div class="header-actions"><label class="language-label"><span class="sr-only">{E(t['nav_europe'])}</span><select data-language-select aria-label="{E(t['nav_europe'])}">{options}</select></label><a href="#preview" class="button small">{E(t['nav_preview'])}</a><button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Menu"><span></span><span></span></button></div></header>
@@ -71,6 +73,7 @@ def page(code):
 <section class="section wrap preview" id="preview"><div class="section-heading"><div><span class="kicker">RAWLO / {E(t['nav_preview'])}</span><h2>{E(t['preview_t'])}</h2><p>{E(c['screens'])}</p></div><div class="gallery-arrows"><button type="button" data-gallery-prev aria-label="{E(c['previous'])}">←</button><button type="button" data-gallery-next aria-label="{E(c['next'])}">→</button></div></div><div class="gallery-filters">{filters}</div><div class="gallery" tabindex="0" aria-label="{E(t['nav_preview'])}">{gallery}</div></section>
 <section class="closing"><div class="wrap"><span class="kicker">KNOW WHAT’S AHEAD.</span><h2>{E(t['closing_t'])}</h2><p>{E(c['build'])}</p><a href="mailto:support@rawlo.eu" class="button">{E(c['contact'])}{icon('arrow')}</a></div></section></main>
 <footer class="wrap"><a class="brand" href="{url(code)}"><img src="/assets/brand/rawlo_logo_white.svg" width="449" height="130" alt="RAWLO"></a><span>© 2026 RAWLO</span><a href="mailto:support@rawlo.eu">support@rawlo.eu</a><a href="#europe">{LOCALES[code][0]} {E(LANGS[code])}</a></footer><dialog class="lightbox" aria-label="{E(t['nav_preview'])}"><div class="lightbox-header"><span data-lightbox-caption></span><button type="button" data-lightbox-close>{E(c['close'])} ×</button></div><img data-lightbox-image alt="" width="944" height="2048"></dialog><script src="/assets/app-v15.js" defer></script></body></html>'''
+ return render_campaign(code,document,c,t,labels,phone,icon,ASSETS)
 def build():
  if set(COPY)!=set(LANGS): raise ValueError('Language catalog incomplete')
  for code in LANGS:
@@ -80,5 +83,5 @@ def build():
  (PUB/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://rawlo.eu/sitemap.xml\n')
  (PUB/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://rawlo.eu{url(code)}</loc></url>' for code in LANGS)+'</urlset>')
  (PUB/'social-preview-manifest.json').write_text(json.dumps({'image':'https://rawlo.eu'+ASSETS+'alpine-journey.png','version':'20261012'},indent=2))
- print(f'RAWLO v15: {len(LANGS)} languages, 12 current screenshots.')
+ print(f'RAWLO v16: {len(LANGS)} languages, interactive product tour, 12 current screenshots.')
 if __name__=='__main__': build()

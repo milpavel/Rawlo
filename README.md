@@ -1,6 +1,7 @@
-# RAWLO · rawlo.eu · redesign 2026-10-12
+# RAWLO · rawlo.eu · premium redesign v16 · 2026-10-12
 
-Tmavý grafit, tyrkysová, horská fotografie a skutečné obrazovky aktuální aplikace.
+Grafit a tyrkysová, velká typografie, nepravidelná síť obsahových bloků,
+horské a pobřežní scenérie a skutečné obrazovky aktuální aplikace.
 Web navazuje na repozitář `milpavel/Rawlo` a nasazení Cloudflare Pages.
 
 ## Sestavení a nasazení
@@ -32,11 +33,23 @@ eSIM je v testování, trajekty a cestovní pojištění se připravují.
 Prezentace dálničních známek neuvádí produkční platební garanci ani pevné ceny.
 Offline dostupnost celé Evropy, rezervace kempů, PRO nákupy a další nedoložené funkce nejsou slibovány.
 
-22 jazyků je zachováno. Nové texty jsou v `scripts/current_copy.py`;
+22 jazyků je zachováno. Nové texty jsou v `scripts/current_copy.py` a `scripts/marketing_copy.py`;
 z původního katalogu se používají lokalizované nadpisy a informace o trase.
 Výběr jazyka pamatuje ruční volbu; na `/` použije jazyk prohlížeče.
 Po zavření náhledu obrázku se fokus vrací přes nativní HTML dialog.
 CSS respektuje omezení pohybu a má responzivní rozložení pro malé telefony.
+
+Interaktivní ukázka přepíná čtyři skutečné obrazovky (plán, navigace, mapa,
+komunita), vysvětluje přínos a propojuje je s galerií. Abstraktní SVG trasa
+je ilustrační motiv; není to webová navigace ani kalkulace skutečné cesty.
+Ovládání funguje i šipkami, Home a End a používá semantiku ARIA tabů.
+Scroll animace jsou jednorázové, průběh stránky je v horním panelu.
+Lehký prostorový pohyb telefonu funguje pouze s přesným ukazatelem.
+
+Akce „Chci vědět o spuštění“ otevře předvyplněný e-mail na support@rawlo.eu;
+stránka jasně uvádí, že otevře poštovní aplikaci. Nejde o automaticky uloženou
+registraci nebo funkční placený nákup. Při vydání se CTA může změnit na odkaz
+do App Store. Texty neobsahují vymyšlená hodnocení nebo počty uživatelů RAWLO.
 
 ## Obrazové podklady
 
@@ -46,6 +59,16 @@ Prompt: Alpine valley, Dolomite mountain peaks, dark pine forest on the left,
 lake and winding road on the right, small unbranded camper, muted cool slate palette,
 photorealistic editorial adventure photography; no text, logo, phones or UI.
 Fotografie nepředstavuje konkrétní rezervovatelné místo.
+
+Pobřežní fotografie `coastal-escape.png`: vestavěný ImageGen, prompt:
+Mediterranean coastal overlook at blue hour, small unbranded campervan on a
+gravel turnout among pines, calm sea to the left, mountain coast and winding
+road, naturally turquoise water, golden horizon, editorial travel photography;
+no text, logos, screens, phones or graphics. Opět ilustrační místo.
+
+Design se inspiroval způsobem prezentace u Roadtrippers, Wanderlog,
+Campercontact, park4night a Sygic, nikoli jejich značkou či grafickými assety.
+Podrobnosti jsou v INSPIRACE_A_KONCEPCE.md v balíčku.
 
 ## Ověření
 

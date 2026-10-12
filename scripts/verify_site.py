@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import json
+from urllib.parse import urlsplit, parse_qs
 from generate_site import LANGS, COPY, PUB
 class Document(HTMLParser):
     def __init__(self):
@@ -19,6 +20,14 @@ def verify():
         assert sum(tag=='figure' for tag,a in page.tags)==12
         assert sum(tag=='a' and a.get('class','').startswith('europe-lang-card') for tag,a in page.tags)==22
         assert sum(tag=='link' and a.get('rel')=='alternate' for tag,a in page.tags)==23
+        tabs=[a for tag,a in page.tags if tag=='button' and a.get('role')=='tab']
+        assert len(tabs)==4 and sum(a['aria-selected']=='true' for a in tabs)==1
+        assert all(a['aria-controls']=='tour-panel' for a in tabs)
+        tour=json.loads(source.split('<script type="application/json" id="tour-data">',1)[1].split('</script>',1)[0])
+        assert len(tour)==4 and all((PUB/step['image'].lstrip('/')).is_file() for step in tour)
+        assert all(step['body'] and step['title'] for step in tour)
+        mails=[a['href'] for tag,a in page.tags if tag=='a' and a.get('href','').startswith('mailto:')]
+        assert any('subject' in parse_qs(urlsplit(mail).query) for mail in mails)
         expected='https://rawlo.eu/'+('' if code=='en' else code+'/')
         assert next(a['href'] for tag,a in page.tags if tag=='link' and a.get('rel')=='canonical')==expected
         for tag,attrs in page.tags:
@@ -35,5 +44,5 @@ def verify():
         if code!='en':
             for key in ['intro','navbody','planbody','mapbody','communitybody','servicebody','profilebody','screens']:
                 assert COPY[code][key]!=COPY['en'][key],(code,key,'English fallback')
-    print('PASS: 22 language pages, anchors/assets, 12 screenshots, 22 country cards, canonical/hreflang and no retired UI.')
+    print('PASS: 22 languages, local assets/anchors, product tour, contact action, 12 screenshots, country cards and SEO.')
 if __name__=='__main__':verify()
